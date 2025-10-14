@@ -30,7 +30,9 @@ void setup() {
 
   Serial.println();
   Serial.println("Raspberry Pi Pico says hello!");
-  Serial.println("USB serial link is ready.\n");
+  Serial.println("USB serial link is ready.");
+  Serial.println("Project repo: https://github.com/Felipegalind0/rp2040-zero-docs-pinout-platformio-project");
+  Serial.println();
 }
 
 void loop() {
