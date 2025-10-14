@@ -12,21 +12,52 @@
 ## Quick Start
 
 1. Install [PlatformIO](https://platformio.org/install) (VS Code extension or CLI).
-2. Clone this repo: `git clone https://github.com/Felipegalind0/rp2040-zero-docs-pinout-platformio-project`.
-3. Open the `platformio-hello-world` folder in PlatformIO.
-4. Pick your upload environment:
-   - `pico_uf2`: drag-and-drop the generated UF2 onto the `RPI-RP2` volume.
-   - `pico_picotool`: flash over USB with `picotool`.
-   - `nanorp2040connect`: Arduino Nano RP2040 Connect board profile.
-5. Build the firmware: `pio run -e pico_uf2`.
-6. Upload it: `pio run -e pico_uf2 --target upload`.
-7. Monitor serial at 115200 baud: `pio device monitor -b 115200`.
+2. Clone the repo: `git clone https://github.com/Felipegalind0/rp2040-zero-docs-pinout-platformio-project`.
+3. Open the `platformio-hello-world` folder in VS Code/PlatformIO.
+4. Connect the RP2040 and decide which upload recipe below fits your situation.
+5. Build the firmware for that environment (VS Code task or `pio run -e <env>`).
+6. Follow the matching upload steps, then reopen the serial monitor at 115200 baud if needed.
 
-### Upload Mode Tips
+Use `pio ...` if the CLI is already on your `PATH`; otherwise call it directly via `~/.platformio/penv/bin/pio ...`.
 
-- UF2 drag-and-drop disables USB serial. Flash the UF2, then press reset (or power cycle) to return to normal mode.
-- Double-tapping reset re-enters mass-storage mode. Tap once to reboot into your sketch.
-- When using `picotool`, let PlatformIO finish the upload and wait for it to reconnect to the serial monitor. If it does not, unplug and reconnect the cable.
+### Environment Cheat Sheet
+
+| Env | Upload style | When to prefer it | Build / upload command |
+| --- | --- | --- | --- |
+| `pico_uf2` | Drag-and-drop UF2 | Board is stuck or you want the guaranteed bootloader path | `pio run -e pico_uf2` → copy `.pio/build/pico_uf2/firmware.uf2` to `RPI-RP2` |
+| `pico_picotool` | Automatic `picotool` loader | Serial works and you want one-click uploading | `pio run -e pico_picotool -t upload` |
+| `nanorp2040connect` | Arduino Nano RP2040 Connect profile | Flashing the official Arduino board | `pio run -e nanorp2040connect -t upload` |
+
+### Foolproof Upload Recipes
+
+**UF2 drag-and-drop (`pico_uf2`)**
+- Unplug USB, hold BOOTSEL, plug back in, then release once `RPI-RP2` appears (`ls /run/media/$USER`).
+- Build: `pio run -e pico_uf2` (generates `.pio/build/pico_uf2/firmware.uf2`).
+- Copy and flush: `cp .pio/build/pico_uf2/firmware.uf2 /run/media/$USER/RPI-RP2/ && sync`.
+- The drive auto-ejects when done; tap RESET once to start the sketch if it does not reboot itself.
+
+**Picotool USB (`pico_picotool`)**
+- Close every serial monitor so `/dev/ttyACM0` is free (PlatformIO’s monitor, `screen`, etc.).
+- Ensure the board shows up as `/dev/ttyACM0` (`ls /dev/ttyACM*`). If it is missing, fall back to the UF2 recipe first.
+- Run `pio run -e pico_picotool -t upload`. PlatformIO toggles 1200 bps to jump into BOOTSEL and streams the ELF via `rp2040load`.
+- When the upload finishes, open the serial monitor again with `pio device monitor -b 115200`.
+
+**Nano RP2040 Connect (`nanorp2040connect`)**
+- Plug in the Arduino Nano RP2040 Connect and select this environment.
+- Upload with `pio run -e nanorp2040connect -t upload`. Use the Arduino reset button if the monitor does not reconnect automatically.
+
+### Command Reference & Notebook Walkthrough
+
+- All shell commands used in these recipes (with explanations and copy-ready cells) live in `upload_recipes.ipynb`. Open it in VS Code or JupyterLab and run cell-by-cell whenever you need a refresher.
+- The notebook covers: detecting the `RPI-RP2` drive, building with `pico_uf2`, copying the UF2, and verifying the device disappears afterward.
+- Prefer copying from the notebook instead of this README so commands stay consistent with future updates.
+
+### Recovery Checklist
+
+- Board unresponsive? Hold BOOTSEL while plugging in to force the UF2 bootloader, then flash via the `pico_uf2` steps.
+- Upload stuck at `.....................`? The bootloader never engaged—disconnect, enter BOOTSEL manually, or verify the cable.
+- Serial still busy after closing monitors? Run `fuser /dev/ttyACM0` to spot lingering processes, or reboot the USB hub.
+- Need a clean slate? `pio run -t clean` before rebuilding ensures the UF2/ELF is regenerated.
 
 ### Runtime Behavior
 
