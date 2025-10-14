@@ -20,6 +20,11 @@
 6. Upload it: `pio run -e pico_uf2 --target upload`
 7. Monitor the serial output at 115200 baud: `pio device monitor -b 115200`
 
+### Upload Mode Gotcha
+- When the board mounts as `RPI-RP2` for UF2 drag-and-drop, the USB serial interface is intentionally disabled. Flash the UF2 and press reset (or power cycle) to return to normal mode with working serial.
+- If you double-tap reset you may land in the mass-storage mode again—tap once to reboot into your sketch.
+- When using `picotool`, finish the upload and wait for PlatformIO to reconnect to the serial monitor automatically; if it does not, unplug and reconnect the cable to leave the bootloader mode.
+
 ### Runtime Behavior
 - Prints a friendly banner and the GitHub repository URL once serial is ready.
 - Toggles the built-in LED and NeoPixel as a heartbeat (500 ms cadence).
