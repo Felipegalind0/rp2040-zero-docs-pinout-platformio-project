@@ -1,2 +1,7 @@
 local/
 graveyard.md
+platformio-hello-world/.vscode/
+.vscode/
+platformio-hello-world/.vscode/c_cpp_properties.json
+platformio-hello-world/.vscode/launch.json
+platformio-hello-world/.vscode/c_cpp_properties.json
