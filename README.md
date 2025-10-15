@@ -1,5 +1,7 @@
 # RP2040 Zero PlatformIO Starter Pack
 
+![RP2040 Zero Diagram](800px-900px-RP2040-Zero-details-7.jpg)
+![RP2040 Zero Dimensions](800px-900px-RP2040-Zero-details-size.jpg)
 > A ready-to-go workspace for the Waveshare RP2040 Zero that combines PlatformIO, Arduino, FastLED, and practical buying guidance.
 
 ## Highlights
@@ -92,10 +94,6 @@ Need just one board for a prototype? Support Waveshare directly with the officia
 - Project repository: https://github.com/Felipegalind0/rp2040-zero-docs-pinout-platformio-project
 - Waveshare RP2040 Zero product page: https://www.waveshare.com/wiki/RP2040-Zero
 
-## Reference Images
-
-![RP2040 Zero Diagram](800px-900px-RP2040-Zero-details-7.jpg)
-![RP2040 Zero Dimensions](800px-900px-RP2040-Zero-details-size.jpg)
 
 ## Project Goals
 
