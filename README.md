@@ -1,8 +1,8 @@
 # RP2040 Zero PlatformIO Starter Pack
-
+[pinout.json](pinout.json)
 ![RP2040 Zero Diagram](800px-900px-RP2040-Zero-details-7.jpg)
 ![RP2040 Zero Dimensions](800px-900px-RP2040-Zero-details-size.jpg)
-> A ready-to-go workspace for the Waveshare RP2040 Zero that combines PlatformIO, Arduino, FastLED, and practical buying guidance.
+> A ready-to-go workspace for the Waveshare RP2040 Zero that combines PlatformIO, Arduino, FastLED, and other useful resources.
 
 ## Highlights
 
@@ -10,6 +10,7 @@
 - Serial banner that surfaces the project repository URL for future reference.
 - On-board LED and NeoPixel heartbeat to confirm the board is alive after flashing.
 - Embedded pinout and mechanical reference images for quick lookup.
+
 
 ## Quick Start
 
@@ -89,18 +90,6 @@ Hello from RP2040 over USB serial! (count: 3)
 
 Need just one board for a prototype? Support Waveshare directly with the official board. Planning more than two builds? One of the multi-pack bundles will stretch your budget further.
 
-## Resources
-
-- Project repository: https://github.com/Felipegalind0/rp2040-zero-docs-pinout-platformio-project
-- Waveshare RP2040 Zero product page: https://www.waveshare.com/wiki/RP2040-Zero
-
-
-## Project Goals
-
-- Deliver a clean PlatformIO hello world project (Arduino framework + FastLED heartbeat).
-- Provide pinout images that humans and LLMs can consume quickly.
-- Share value-focused buying recommendations and inspirational project links.
-- Act as the FOC MCU reference for an upcoming robot dog project.
 
 ## Waveshare RP2040 Zero Pinout Reference
 
@@ -172,57 +161,24 @@ Every `GPx` pin supports digital I/O and PWM. Peripheral routes listed are RP204
 - Four 12-bit ADC channels (`ADC0` to `ADC3`).
 - PWM capability on every GPIO via RP2040 PWM slices.
 
+## Resources
+
+- Project repository: https://github.com/Felipegalind0/rp2040-zero-docs-pinout-platformio-project
+- Waveshare RP2040 Zero product page: https://www.waveshare.com/wiki/RP2040-Zero
+
+
+## Project Goals
+
+- Deliver a clean PlatformIO hello world project (Arduino framework + FastLED heartbeat).
+- Provide pinout images that humans and LLMs can consume quickly.
+- Share value-focused buying recommendations and inspirational project links.
+- Act as the FOC MCU reference for an upcoming robot dog project.
+
+
 ## Amazon Affiliate Link Disclaimer
 
 As an Amazon Associate, I may earn a small commission from qualifying purchases. This helps support my work in providing useful resources and information. Thank you for your support!
 
-## Machine-Readable Pin Data
-
-```json
-{
-  "board_name": "Waveshare RP2040-Zero",
-  "total_pins": 34,
-  "onboard_led": {
-    "pin_name": "GP16",
-    "led_type": "WS2812 RGB"
-  },
-  "pins": [
-    {"physical_pin": 1, "label": "5V", "type": "Power", "functions": []},
-    {"physical_pin": 2, "label": "GND", "type": "Ground", "functions": []},
-    {"physical_pin": 3, "label": "GP0", "type": "GPIO", "functions": ["SPI0 RX", "I2C0 SDA", "UART0 TX"]},
-    {"physical_pin": 4, "label": "GP1", "type": "GPIO", "functions": ["SPI0 CSn", "I2C0 SCL", "UART0 RX"]},
-    {"physical_pin": 5, "label": "GP2", "type": "GPIO", "functions": ["SPI0 SCK", "I2C1 SDA"]},
-    {"physical_pin": 6, "label": "GP3", "type": "GPIO", "functions": ["SPI0 TX", "I2C1 SCL"]},
-    {"physical_pin": 7, "label": "GP4", "type": "GPIO", "functions": ["SPI0 RX", "I2C0 SDA", "UART1 TX"]},
-    {"physical_pin": 8, "label": "GP5", "type": "GPIO", "functions": ["SPI0 CSn", "I2C0 SCL", "UART1 RX"]},
-    {"physical_pin": 9, "label": "GP6", "type": "GPIO", "functions": ["SPI0 SCK", "I2C1 SDA"]},
-    {"physical_pin": 10, "label": "GP7", "type": "GPIO", "functions": ["SPI0 TX", "I2C1 SCL"]},
-    {"physical_pin": 11, "label": "GP8", "type": "GPIO", "functions": ["SPI1 RX", "I2C0 SDA", "UART1 TX"]},
-    {"physical_pin": 12, "label": "GP9", "type": "GPIO", "functions": ["SPI1 CSn", "I2C0 SCL", "UART1 RX"]},
-    {"physical_pin": 13, "label": "GP10", "type": "GPIO", "functions": ["SPI1 SCK", "I2C1 SDA"]},
-    {"physical_pin": 14, "label": "GP11", "type": "GPIO", "functions": ["SPI1 TX", "I2C1 SCL"]},
-    {"physical_pin": 15, "label": "GP12", "type": "GPIO", "functions": ["SPI1 RX", "I2C0 SDA", "UART0 TX"]},
-    {"physical_pin": 16, "label": "GP13", "type": "GPIO", "functions": ["SPI1 CSn", "I2C0 SCL", "UART0 RX"]},
-    {"physical_pin": 17, "label": "GP14", "type": "GPIO", "functions": ["SPI1 SCK", "I2C1 SDA"]},
-    {"physical_pin": 18, "label": "GP15", "type": "GPIO", "functions": ["SPI1 TX", "I2C1 SCL"]},
-    {"physical_pin": 19, "label": "GP16", "type": "GPIO", "functions": ["WS2812 DIN"]},
-    {"physical_pin": 20, "label": "GP17", "type": "GPIO", "functions": ["SPI0 CSn", "I2C0 SCL", "UART0 RX"]},
-    {"physical_pin": 21, "label": "GP18", "type": "GPIO", "functions": ["SPI0 SCK", "I2C1 SDA"]},
-    {"physical_pin": 22, "label": "GP19", "type": "GPIO", "functions": ["SPI0 TX", "I2C1 SCL"]},
-    {"physical_pin": 23, "label": "GP20", "type": "GPIO", "functions": ["I2C0 SDA", "UART1 TX"]},
-    {"physical_pin": 24, "label": "GP21", "type": "GPIO", "functions": ["I2C0 SCL", "UART1 RX"]},
-    {"physical_pin": 25, "label": "GP22", "type": "GPIO", "functions": ["PWM"]},
-    {"physical_pin": 26, "label": "GP23", "type": "GPIO", "functions": ["PWM"]},
-    {"physical_pin": 27, "label": "GP24", "type": "GPIO", "functions": ["PWM"]},
-    {"physical_pin": 28, "label": "GP25", "type": "GPIO", "functions": ["PWM"]},
-    {"physical_pin": 29, "label": "GND", "type": "Ground", "functions": []},
-    {"physical_pin": 30, "label": "3V3", "type": "Power", "functions": []},
-    {"physical_pin": 31, "label": "GP29", "type": "ADC", "functions": ["ADC3"]},
-    {"physical_pin": 32, "label": "GP28", "type": "ADC", "functions": ["ADC2"]},
-    {"physical_pin": 33, "label": "GP27", "type": "ADC", "functions": ["ADC1"]},
-    {"physical_pin": 34, "label": "GP26", "type": "ADC", "functions": ["ADC0"]}
-  ]
-}
 
 
 
