@@ -162,9 +162,9 @@ Every `GPx` pin supports digital I/O and PWM. Peripheral routes listed are RP204
 
 ## Resources
 
-- Project repository: https://github.com/Felipegalind0/rp2040-zero-docs-pinout-platformio-project
 - Waveshare RP2040 Zero product page: https://www.waveshare.com/wiki/RP2040-Zero
 
+- RP2040 Datasheet: https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf
 
 ## Project Goals
 
