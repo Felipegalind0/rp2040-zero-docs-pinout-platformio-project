@@ -1,6 +1,7 @@
 #include "hello_world.h"
 
 #include <Arduino.h>
+#include <pico/bootrom.h>
 
 #include "app_config.h"
 #include "qr_benchmark.h"
@@ -19,6 +20,8 @@ unsigned long lastHeartbeatMs = 0;
 bool heartbeatLedOn = false;
 uint32_t helloCount = 0;
 ButtonState buttonState;
+constexpr char kBootselCommand[] = "::BOOTSEL::";
+size_t bootselMatchIndex = 0;
 
 void updateHeartbeat(const unsigned long now) {
   if (now - lastHeartbeatMs < AppConfig::heartbeatIntervalMs) {
@@ -89,6 +92,24 @@ void waitForSerial() {
     showStatusPixel(AppConfig::heartbeatOffColor);
   }
 }
+
+void checkForBootselTrigger() {
+  while (Serial.available() > 0) {
+    const char c = Serial.read();
+    if (c == kBootselCommand[bootselMatchIndex]) {
+      ++bootselMatchIndex;
+      if (kBootselCommand[bootselMatchIndex] == '\0') {
+        Serial.println("\nEntering BOOTSEL mode (auto-upload request)...");
+        Serial.flush();
+        delay(20);
+        bootselMatchIndex = 0;
+        reset_usb_boot(0, 0);
+      }
+    } else {
+      bootselMatchIndex = (c == kBootselCommand[0]) ? 1 : 0;
+    }
+  }
+}
 }  // namespace
 
 void setupHelloWorld() {
@@ -115,4 +136,5 @@ void loopHelloWorld() {
   updateHeartbeat(now);
   updateHelloAnnouncer(now);
   updateButtonMonitor(now);
+  checkForBootselTrigger();
 }

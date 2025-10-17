@@ -20,25 +20,31 @@
 5. Build the firmware for that environment (VS Code task or `pio run -e <env>`).
 6. Follow the matching upload steps, then reopen the serial monitor at 115200 baud if needed.
 
+⚠️ The very first time you program a new board you still need to enter BOOTSEL manually (or copy the UF2 by hand). That initial flash installs firmware that listens for the `::BOOTSEL::` trigger over USB so future uploads can reset the board for you.
+
+📓 Prefer step-by-step shell commands? Open [`upload_recipes.ipynb`](upload_recipes.ipynb) (VS Code: `Ctrl+Shift+P` → “Open Notebook”). Each cell title mirrors the sections below and includes ready-to-run commands.
+
 Use `pio ...` if the CLI is already on your `PATH`; otherwise call it directly via `~/.platformio/penv/bin/pio ...`.
 
 ### Environment Cheat Sheet
 
 | Env | Upload style | When to prefer it | Build / upload command |
 | --- | --- | --- | --- |
-| `pico_uf2` | Drag-and-drop UF2 | Board is stuck or you want the guaranteed bootloader path | `pio run -e pico_uf2` → copy `.pio/build/pico_uf2/firmware.uf2` to `RPI-RP2` |
-| `pico_picotool` | Automatic `picotool` loader | Serial works and you want one-click uploading | `pio run -e pico_picotool -t upload` |
+| `pico_uf2` | Drag-and-drop UF2 + installs auto-BOOTSEL helper | Board is stuck or you want the guaranteed bootloader path (and to seed the auto-reset firmware) | `pio run -e pico_uf2` → copy `.pio/build/pico_uf2/firmware.uf2` to `RPI-RP2` |
+| `pico_picotool` | Automatic `picotool` loader | Board already has the helper firmware and you want one-click uploading | `pio run -e pico_picotool -t upload` |
 | `nanorp2040connect` | Arduino Nano RP2040 Connect profile | Flashing the official Arduino board | `pio run -e nanorp2040connect -t upload` |
 
 ### Foolproof Upload Recipes
 
 **UF2 drag-and-drop (`pico_uf2`)**
+- Notebook cell 3 shows the exact `ls /run/media/$USER` command so you can verify the board is in BOOTSEL mode.
 - Unplug USB, hold BOOTSEL, plug back in, then release once `RPI-RP2` appears (`ls /run/media/$USER`).
 - Build: `pio run -e pico_uf2` (generates `.pio/build/pico_uf2/firmware.uf2`).
 - Copy and flush: `cp .pio/build/pico_uf2/firmware.uf2 /run/media/$USER/RPI-RP2/ && sync`.
 - The drive auto-ejects when done; tap RESET once to start the sketch if it does not reboot itself.
 
 **Picotool USB (`pico_picotool`)**
+- Notebook cell 6 (`pio run -e pico_uf2`) is still the recommended first flash if the board has never seen this project—do that once, then switch to `pico_picotool`.
 - Close every serial monitor so `/dev/ttyACM0` is free (PlatformIO’s monitor, `screen`, etc.).
 - Ensure the board shows up as `/dev/ttyACM0` (`ls /dev/ttyACM*`). If it is missing, fall back to the UF2 recipe first.
 - Run `pio run -e pico_picotool -t upload`. PlatformIO toggles 1200 bps to jump into BOOTSEL and streams the ELF via `rp2040load`.

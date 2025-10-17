@@ -1,9 +1,9 @@
 #include "hello_world.h"
 
-void setup() {
+extern "C" void setup() {
   setupHelloWorld();
 }
 
-void loop() {
+extern "C" void loop() {
   loopHelloWorld();
 }
